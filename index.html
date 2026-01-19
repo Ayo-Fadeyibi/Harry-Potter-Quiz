@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sophy's Harry Potter Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <h1>SOPHY'S HARRY POTTER QUIZ</h1>
+        <p class="subtitle">✨ Test Your Magical Knowledge ✨</p>
+        
+        <div class="start-screen active">
+            <p class="intro-text">
+                Welcome, wizard! Are you ready to test your knowledge of the wizarding world? 
+                Answer 10 questions and discover your magical rank!
+            </p>
+            <button class="start-btn" onclick="startQuiz()">Begin Your Journey</button>
+        </div>
+        
+        <div class="quiz-screen">
+            <div class="question-counter" id="questionCounter"></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="question-container">
+                <div class="question" id="question"></div>
+                <div class="options" id="options"></div>
+            </div>
+        </div>
+        
+        <div class="result-screen">
+            <div class="rank-icon" id="rankIcon"></div>
+            <div class="rank" id="rank"></div>
+            <div class="score" id="finalScore"></div>
+            <button class="restart-btn" onclick="restartQuiz()">Take Quiz Again</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
