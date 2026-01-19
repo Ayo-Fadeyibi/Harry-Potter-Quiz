@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Philosopher:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Philosopher', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.container {
+    background: rgba(20, 20, 40, 0.85);
+    border: 2px solid #d4af37;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 700px;
+    width: 90%;
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+    text-align: center;
+    background: linear-gradient(45deg, #d4af37, #f4e5c2, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5)); }
+    50% { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8)); }
+}
+
+.subtitle {
+    text-align: center;
+    color: #d4af37;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    font-style: italic;
+}
+
+.start-screen, .quiz-screen, .result-screen {
+    display: none;
+}
+
+.start-screen.active, .quiz-screen.active, .result-screen.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.start-btn, .restart-btn {
+    background: linear-gradient(135deg, #722f37 0%, #9b4a52 100%);
+    color: #fff;
+    border: 2px solid #d4af37;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-family: 'Cinzel', serif;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin: 30px auto;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.start-btn:hover, .restart-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+}
+
+.start-btn::before, .restart-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.start-btn:hover::before, .restart-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.question-container {
+    margin: 30px 0;
+}
+
+.question {
+    color: #f4e5c2;
+    font-size: 1.3em;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.options {
+    display: grid;
+    gap: 15px;
+}
+
+.option {
+    background: linear-gradient(135deg, rgba(15, 52, 96, 0.6) 0%, rgba(22, 33, 62, 0.6) 100%);
+    border: 2px solid #4a5568;
+    padding: 15px 20px;
+    border-radius: 10px;
+    color: #e0e0e0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1em;
+}
+
+.option:hover {
+    border-color: #d4af37;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(15, 52, 96, 0.6) 100%);
+    transform: translateX(10px);
+}
+
+.option.correct {
+    background: linear-gradient(135deg, rgba(34, 139, 34, 0.5) 0%, rgba(0, 100, 0, 0.5) 100%);
+    border-color: #32cd32;
+    animation: correctPulse 0.5s ease;
+}
+
+.option.incorrect {
+    background: linear-gradient(135deg, rgba(178, 34, 34, 0.5) 0%, rgba(139, 0, 0, 0.5) 100%);
+    border-color: #ff6b6b;
+    animation: incorrectShake 0.5s ease;
+}
+
+@keyframes correctPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes incorrectShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.option.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.progress-bar {
+    background: rgba(74, 85, 104, 0.3);
+    height: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #d4af37 0%, #f4e5c2 100%);
+    height: 100%;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.question-counter {
+    text-align: center;
+    color: #d4af37;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.result-screen {
+    text-align: center;
+}
+
+.score {
+    font-size: 3em;
+    color: #d4af37;
+    margin: 20px 0;
+    font-family: 'Cinzel', serif;
+}
+
+.rank {
+    font-size: 2em;
+    color: #f4e5c2;
+    margin: 20px 0;
+    padding: 20px;
+    border: 2px solid #d4af37;
+    border-radius: 15px;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(15, 52, 96, 0.3) 100%);
+}
+
+.rank-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.intro-text {
+    color: #e0e0e0;
+    font-size: 1.1em;
+    line-height: 1.8;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.wand {
+    position: absolute;
+    width: 3px;
+    height: 30px;
+    background: linear-gradient(to bottom, #8b4513, #654321);
+    animation: wandFly 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes wandFly {
+    0% {
+        transform: translateX(-100px) translateY(-100px) rotate(45deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100vw) translateY(100vh) rotate(45deg);
+        opacity: 0;
+    }
+}
